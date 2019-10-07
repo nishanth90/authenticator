@@ -18,4 +18,4 @@ spec:
       - image: gcr.io/$PROJECT_ID/microservice-authenticator:latest
         name: microservice-authenticator
         ports:
-        - containerPort: 9091
+        - containerPort: 9090
