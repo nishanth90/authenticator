@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    run: microservice-authenticator
+  name: microservice-authenticator
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      run: microservice-authenticator
+  template:
+    metadata:
+      labels:
+        run: microservice-authenticator
+    spec:
+      containers:
+      - image: gcr.io/$PROJECT_ID/microservice-authenticator:latest
+        name: microservice-authenticator
+        ports:
+        - containerPort: 9091

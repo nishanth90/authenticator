@@ -1,0 +1,12 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: microservice-authenticator
+spec:
+  selector:
+     run: microservice-authenticator
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 9091
+  type: LoadBalancer
