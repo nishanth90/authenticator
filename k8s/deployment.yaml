@@ -17,5 +17,6 @@ spec:
       containers:
       - image: gcr.io/$PROJECT_ID/microservice-authenticator:latest
         name: microservice-authenticator
+        imagePullPolicy: Always
         ports:
         - containerPort: 9090
