@@ -36,6 +36,7 @@ public class JwtUserDetailsService {
 			return ResponseEntity.badRequest().body(INVALID_CREDENTIALS);
 		}
 		} catch(Exception me) {
+			me.printStackTrace();
 			return ResponseEntity.status(HTTP_500).body(MONGO_EXCPETION);
 		}
 	}
