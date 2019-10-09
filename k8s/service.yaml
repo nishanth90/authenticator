@@ -1,10 +1,10 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name: microservice-authenticator
+  name: microservice-jwt-authenticator
 spec:
   selector:
-     run: microservice-authenticator
+     run: microservice-jwt-authenticator
   ports:
   - protocol: TCP
     port: 80

@@ -2,21 +2,21 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    run: microservice-authenticator
-  name: microservice-authenticator
+    run: microservice-jwt-authenticator
+  name: microservice-jwt-authenticator
 spec:
   replicas: 1
   selector:
     matchLabels:
-      run: microservice-authenticator
+      run: microservice-jwt-authenticator
   template:
     metadata:
       labels:
-        run: microservice-authenticator
+        run: microservice-jwt-authenticator
     spec:
       containers:
-      - image: gcr.io/$PROJECT_ID/microservice-authenticator:latest
-        name: microservice-authenticator
+      - image: gcr.io/$PROJECT_ID/microservice-jwt-authenticator:latest
+        name: microservice-jwt-authenticator
         imagePullPolicy: Always
         ports:
         - containerPort: 9090

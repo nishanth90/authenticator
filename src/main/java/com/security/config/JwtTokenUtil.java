@@ -2,6 +2,7 @@ package com.security.config;
 
 import java.io.Serializable;
 import java.util.Base64;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -15,7 +16,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
 /*
- * Util class to generate and validate the JWT tokens
+ * Util class to generate and validate the JWT token
  * */
 @Component
 public class JwtTokenUtil implements Serializable {
@@ -26,6 +27,15 @@ public class JwtTokenUtil implements Serializable {
 
 	@Value("${jwt.secret}")
 	private String secret;
+	
+	@Value("${jwt.token.expiry}")
+	private int expiry;
+	
+	@Value("${jwt.token.expiry.months}")
+	private boolean expiryMonths;
+	
+	@Value("${jwt.token.expiry.years}")
+	private boolean expiryYears;
 	
 	/*
 	 * Method to decode the encoded secret from applicaiton.properties
@@ -46,13 +56,26 @@ public class JwtTokenUtil implements Serializable {
 	
 	/*
 	 * Method to generate Token based on secret and username
-	 * Subject is the username + password of the requestor
+	 * Subject is the username + password of the requester
 	 * SecretKey is Base64 encoded
 	 * */
 	private String doGenerateToken(Map<String, Object> claims, JwtRequest subject) {
-
+		
+		//Set by default expiry time to one year
+		Calendar today = Calendar.getInstance(); 
+		Calendar nextYearToday = today;
+		
+		//Set the expiry time unit
+		if(expiryMonths) {
+			nextYearToday.add(Calendar.MONTH, expiry);
+		} else if(expiryYears) {
+			nextYearToday.add(Calendar.YEAR, expiry);
+		} else {
+			nextYearToday.add(Calendar.YEAR, 1);
+		}
+				
 		return Jwts.builder().setClaims(claims).setSubject(subject.getUsername()+"/"+ subject.getPassword()).setIssuedAt(new Date(System.currentTimeMillis()))
-				.setExpiration(new Date(System.currentTimeMillis() + JWT_TOKEN_VALIDITY*1000)).signWith(SignatureAlgorithm.HS512, getSecret()).compact();
+				.setExpiration(nextYearToday.getTime()).signWith(SignatureAlgorithm.HS512, getSecret()).compact();
 	}
 
 }

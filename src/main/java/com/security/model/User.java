@@ -3,6 +3,10 @@ package com.security.model;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+/**
+ * MongoDB document
+ * Reflects the same table table structure as that of user data
+ * */
 @Document
 public class User {
 

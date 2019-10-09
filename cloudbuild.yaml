@@ -3,10 +3,10 @@ steps:
   args: ['mvn', 'clean','install','deploy']
 
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['build', '-t', 'gcr.io/$PROJECT_ID/microservice-authenticator', '.']
+  args: ['build', '-t', 'gcr.io/$PROJECT_ID/microservice-jwt-authenticator', '.']
 
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['push', 'gcr.io/$PROJECT_ID/microservice-authenticator']
+  args: ['push', 'gcr.io/$PROJECT_ID/microservice-jwt-authenticator']
 
 - name: 'gcr.io/cloud-builders/kubectl'
   args: ['apply', '-f', 'k8s/']
@@ -19,13 +19,13 @@ steps:
    'set', 
    'image', 
    'deployment', 
-   'microservice-authenticator', 
-   'microservice-authenticator=gcr.io/$PROJECT_ID/microservice-authenticator:latest'
+   'microservice-jwt-authenticator', 
+   'microservice-jwt-authenticator=gcr.io/$PROJECT_ID/microservice-jwt-authenticator:latest'
   ]
   env:
   - 'CLOUDSDK_COMPUTE_ZONE=us-central1-a'
   - 'CLOUDSDK_CONTAINER_CLUSTER=test-microservice-java'
 
 images: [
-   'gcr.io/$PROJECT_ID/microservice-authenticator:latest'
+   'gcr.io/$PROJECT_ID/microservice-jwt-authenticator:latest'
   ]

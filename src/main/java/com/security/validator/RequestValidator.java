@@ -4,6 +4,9 @@ import org.springframework.stereotype.Component;
 
 import com.security.model.JwtRequest;
 
+/**
+ * Validator class to validate the input request
+ * */
 @Component
 public class RequestValidator {
 	

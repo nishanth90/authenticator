@@ -1,5 +1,7 @@
 package com.security.controller;
 
+import static com.security.constants.SecurityConstants.INVALID_REQUEST;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -11,9 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.security.model.JwtRequest;
 import com.security.service.JwtUserDetailsService;
 import com.security.validator.RequestValidator;
-
-import static com.security.constants.SecurityConstants.INVALID_REQUEST;
-
 /*
  * Controller class to configure the REST URLs
  * */
@@ -36,6 +35,7 @@ public class JwtAuthenticationController {
 	 * 			password:"<password>"
 	 *         }
 	 * */
+
 	@RequestMapping(value = "/generateToken", method = RequestMethod.POST)
 	public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest)
 			throws Exception {
